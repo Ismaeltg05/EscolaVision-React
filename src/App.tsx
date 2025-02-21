@@ -1,11 +1,8 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import Login from './components/Login';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function App({ onLoginClick }: { onLoginClick: () => void }) {
   return (
     <>
       <div className="flex justify-center items-center space-x-4 p-4">
@@ -14,22 +11,15 @@ function App() {
       <h1 className="text-3xl font-bold underline text-center">EscolaVision</h1>
       <h3 className="text-2xl text-center">Tu App de Orientación Escolar</h3>
       <div className="card flex flex-col items-center p-4">
-        
-        {/* <button
+        <button
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-          onClick={() => setCount((count) => count + 1)}
+          onClick={onLoginClick}
         >
-          count is {count}
+          Ir al Login
         </button>
-        <p className="mt-4">
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        <p className="read-the-docs text-center mt-4">
-        Click on the Vite and React logos to learn more
-      </p>*/}
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
