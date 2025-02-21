@@ -5,10 +5,12 @@ import App from './App.tsx'
 import Menu from './components/Menu.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <div className="bg-[#AED6F1] min-h-screen">
   <StrictMode>
+    <div className="bg-[#AED6F1] min-h-screen flex flex-col">
       <Menu />
-      <App />
-  </StrictMode>,
-  </div>
+      <div className="flex-grow">
+        <App />
+      </div>
+    </div>
+  </StrictMode>
 )
