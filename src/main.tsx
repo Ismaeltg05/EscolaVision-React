@@ -25,12 +25,12 @@ function Main() {
   return (
     <div className="bg-[#AED6F1] min-h-screen flex flex-col">
       {isAuthenticated && <Menu />}
-      <div className="flex-grow flex justify-center items-center">
+      <div className="flex-grow flex flex-col justify-center items-center text-center">
         {isAuthenticated ? (
-          <div className="text-center">
+          <>
             <img src="/src/assets/escolavision.png" alt="EscolaVision Logo" className="h-64 mx-auto" />
             <h1 className="text-3xl font-bold mt-4">Bienvenido</h1>
-          </div>
+          </>
         ) : showLogin ? (
           <Login onBackClick={handleBackClick} onLoginSuccess={handleLoginSuccess} />
         ) : (

@@ -1,16 +1,43 @@
-import React, { StrictMode, useState } from 'react';
+import React, { useState } from 'react';
 
-function Login({ onBackClick, onLoginSuccess }: { onBackClick: () => void, onLoginSuccess: () => void }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+type LoginProps = {
+    onBackClick: () => void;
+    onLoginSuccess: (usuario: string) => void;
+};
 
-    const handleSubmit = (e: React.FormEvent) => {
+const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
+    const [usuario, setUsuario] = useState('');
+    const [contrasena, setContrasena] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Simulación de autenticación exitosa
-        if (email === 'usuario@ejemplo.com' && password === '1234') {
-            onLoginSuccess();
-        } else {
-            alert('Credenciales incorrectas');
+        setLoading(true);
+        setError('');
+
+        try {
+            console.log('Enviando credenciales:', { usuario, contrasena });
+            const response = await fetch('http://servidor.ieshlanz.es:8000/crud/login.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ usuario, contrasena }),
+            });
+
+            const data = await response.json();
+            console.log('Respuesta del servidor:', data);
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || 'Credenciales incorrectas');
+            }
+
+            onLoginSuccess(data.usuario); // Pasamos el nombre de usuario al callback
+        } catch (error) {
+            setError((error as Error).message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -18,28 +45,29 @@ function Login({ onBackClick, onLoginSuccess }: { onBackClick: () => void, onLog
         <div className="flex justify-center items-center min-h-screen bg-[#AED6F1]">
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
                 <h2 className="text-2xl font-bold mb-4 text-center">Iniciar Sesión</h2>
+                {error && <p className="text-red-500 text-center mb-4">{error}</p>}
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="usuario">
                         Usuario
                     </label>
                     <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        id="usuario"
+                        value={usuario}
+                        onChange={(e) => setUsuario(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                     />
                 </div>
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contrasena">
                         Contraseña
                     </label>
                     <input
                         type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        id="contrasena"
+                        value={contrasena}
+                        onChange={(e) => setContrasena(e.target.value)}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                     />
@@ -48,8 +76,9 @@ function Login({ onBackClick, onLoginSuccess }: { onBackClick: () => void, onLog
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        disabled={loading}
                     >
-                        Iniciar Sesión
+                        {loading ? 'Verificando...' : 'Iniciar Sesión'}
                     </button>
                     <button
                         type="button"
@@ -62,6 +91,6 @@ function Login({ onBackClick, onLoginSuccess }: { onBackClick: () => void, onLog
             </form>
         </div>
     );
-}
+};
 
 export default Login;
