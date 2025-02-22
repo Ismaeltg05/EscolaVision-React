@@ -1,6 +1,4 @@
 function Test() {
-  return <>
-    <h1>Test</h1>
-    <p>Test</p>
-  </>;
+  // TODO: Implementar Test en el futuro
 }
+export default Test;
