@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ismaeltg05.github.io/EscolaVision-React/build",
+  "homepage": "https://ismaeltg05.github.io/EscolaVision-React",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
