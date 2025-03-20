@@ -1,27 +1,28 @@
 import { useState } from "react";
+import Pregunta from "./Pregunta";
+import Test from "./Test";
+import Usuario from "./Usuario";
+import Area from "./Area";
+import Intento from "./Intento";
+import './styles/menu.css';
 
 const Menu = () => {
   const [active, setActive] = useState<string | null>(null);
 
-  // Definir la función handleClick
   const handleClick = (item: string) => {
     setActive(item);
   };
 
   return (
     <>
-      <nav className="bg-[#AED6F1] p-4 w-full">
-        <ul className="flex w-full">
-          {["test", "pregunta", "usuario", "Area", "intento"].map((item) => (
-            <li key={item} className="text-center mr-1">
+      <nav className="menu-nav">
+        <ul className="menu-list">
+          {["test", "pregunta", "usuario", "area", "intento"].map((item) => (
+            <li key={item} className="menu-item">
               <a
                 href={`#${item}`}
                 onClick={() => handleClick(item)}
-                className={`py-2 px-4 border border-black ${
-                  active === item
-                    ? "bg-[#357ABD] text-white rounded-t border-b-0"
-                    : "bg-[#4A90E2] text-white hover:bg-[#357ABD] rounded"
-                }`}
+                className={`menu-link ${active === item ? "active" : ""}`}
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </a>
@@ -29,12 +30,12 @@ const Menu = () => {
           ))}
         </ul>
       </nav>
-      <div className="p-4">
-        {active === "test" && <div className="bg-[#AED6F1] p-4 rounded-b">Contenido de Test</div>}
-        {active === "pregunta" && <div className="bg-[#AED6F1] p-4 rounded-b">Contenido de Pregunta</div>}
-        {active === "usuario" && <div className="bg-[#AED6F1] p-4 rounded-b">Contenido de Usuario</div>}
-        {active === "area" && <div className="bg-[#AED6F1] p-4 rounded-b">Contenido de Area</div>}
-        {active === "intento" && <div className="bg-[#AED6F1] p-4 rounded-b">Contenido de Intento</div>}
+      <div className="content-container">
+        {active === "test" && <div className="content"><Test/></div>}
+        {active === "pregunta" && <div className="content"><Pregunta/></div>}
+        {active === "usuario" && <div className="content"><Usuario/></div>}
+        {active === "area" && <div className="content"><Area/></div>}
+        {active === "intento" && <div className="content"><Intento/></div>}
       </div>
     </>
   );
