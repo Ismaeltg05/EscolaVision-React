@@ -4,7 +4,7 @@ const Area: React.FC = () => {
   const [idArea, setIdArea] = useState('');
   const [nameArea, setNameArea] = useState('');
   const [descriptionArea, setDescriptionArea] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl] = useState('');
 
   const handleNuevoClick = () => {
     // Lógica para manejar el clic en el botón Nuevo

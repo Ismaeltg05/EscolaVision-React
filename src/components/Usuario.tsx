@@ -32,10 +32,10 @@ const Usuario: React.FC = () => {
   }, []);
 
   // Cargar los datos del usuario al hacer clic
-  const handleUserClick = (usuario: { id: string; nombre: string; email: string; dni?: string; contraseña?: string; fecha_nacimiento?: string; foto?: string }) => {
+  const handleUserClick = (usuario: { id: string; nombre: string; email?: string; dni?: string; contraseña?: string; fecha_nacimiento?: string; foto?: string }) => {
     setIdAlum(usuario.id);
     setNameAlum(usuario.nombre);
-    setEmailAlum(usuario.email);
+    setEmailAlum(usuario.email || '');
     setDniAlum(usuario.dni || '');
     setPasswordAlum(usuario.contraseña || '');
     setYearAlum(usuario.fecha_nacimiento || '');

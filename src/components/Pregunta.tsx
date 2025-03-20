@@ -127,7 +127,7 @@ const Pregunta: React.FC = () => {
                   <select
                     className="combo-box"
                     value={testQuest}
-                    onChange={(e) => setTestQuest(e.target.value)}
+                    onChange={(e) => setTestQuest(Number(e.target.value))}
                   >
                     <option value="" disabled>Introduce el test correspondiente a la pregunta...</option>
                     {/* Opciones del ComboBox */} 
