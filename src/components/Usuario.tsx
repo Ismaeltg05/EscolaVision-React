@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 
 const Usuario: React.FC = () => {
@@ -156,3 +157,5 @@ const Usuario: React.FC = () => {
 };
 
 export default Usuario;
+=======
+>>>>>>> parent of 5acf47d (muchos cambios, conexion con **AWS**, login hecho, test, preguntas y usuarios (mas o menos))

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 
 const Pregunta: React.FC = () => {
@@ -159,3 +160,5 @@ const Pregunta: React.FC = () => {
 };
 
 export default Pregunta;
+=======
+>>>>>>> parent of 5acf47d (muchos cambios, conexion con **AWS**, login hecho, test, preguntas y usuarios (mas o menos))
