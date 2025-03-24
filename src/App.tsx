@@ -17,7 +17,7 @@ function App() {
     return localStorage.getItem('isLoggedIn') === 'true';
   });
 
-  const handleLoginSuccess = (usuario: string) => {
+  const handleLoginSuccess = () => {
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', 'true');
   };

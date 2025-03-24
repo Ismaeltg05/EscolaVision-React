@@ -11,7 +11,7 @@ interface TestProps {
   logout: () => void;
 }
 
-const Test: React.FC<TestProps> = ({ logout }) => {
+const Test: React.FC<TestProps> = ({ }) => {
   const [tests, setTests] = useState<{ id: number; nombretest: string; isVisible: number; }[]>([]);
   const [idTest, setIdTest] = useState('');
   const [testNombre, setTestNombre] = useState('');

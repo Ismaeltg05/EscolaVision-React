@@ -10,9 +10,6 @@ function Main() {
   const [showLogin, setShowLogin] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
 
-  const handleLoginClick = () => {
-    setShowLogin(true);
-  };
 
   const handleBackClick = () => {
     setShowLogin(false);
@@ -39,7 +36,7 @@ function Main() {
 
   return (
     <div className="bg-[#AED6F1] min-h-screen flex flex-col">
-      {isAuthenticated && <Menu />}
+      {isAuthenticated && <Menu onLogout={handleBackClick}/>}
       <div className="flex-grow flex flex-col justify-center items-center text-center">
         {showWelcome ? (
           <>
@@ -51,7 +48,7 @@ function Main() {
         ) : isAuthenticated ? (
           <div></div>
         ) : (
-          <App onLoginClick={handleLoginClick} />
+          <App/>
         )}
       </div>
     </div>

@@ -20,7 +20,7 @@ interface MenuProps {
 
 const Menu = ({ onLogout }: MenuProps) => {
   const [active, setActive] = useState<string | null>("test");
-  const [usuarioId, setUsuarioId] = useState<number | null>(null);
+  //const [usuarioId, setUsuarioId] = useState<number | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Menu = ({ onLogout }: MenuProps) => {
       navigate('/login');
       return;
     }
-    setUsuarioId(Number(storedIdUsuario));
+    //setUsuarioId(Number(storedIdUsuario));
   }, [navigate]);
 
   const handleLogout = () => {
