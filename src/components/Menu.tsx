@@ -1,7 +1,8 @@
 /**
  * @file Menu.tsx
  * @description Componente que muestra el menú de la aplicación.
- * @author Adrian Ruiz Sanchez, Ismael Torres González
+ * @author Adrian Ruiz Sanchez
+ * @coauthor Ismael Torres González
  */
 
 import { useState, useEffect } from "react";
