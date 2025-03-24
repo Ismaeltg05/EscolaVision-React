@@ -17,7 +17,6 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
         setError('');
 
         try {
-            console.log('Enviando credenciales:', { usuario, contrasena });
             const response = await fetch('http://servidor.ieshlanz.es:8000/crud/login.php', {
                 method: 'POST',
                 headers: {
@@ -27,13 +26,17 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
             });
 
             const data = await response.json();
-            console.log('Respuesta del servidor:', data);
 
-            if (!response.ok || !data.success) {
+            if (!data || data.status !== 'success') {
                 throw new Error(data.message || 'Credenciales incorrectas');
             }
 
-            onLoginSuccess(data.usuario); // Pasamos el nombre de usuario al callback
+            const idusuario = data.id;
+            localStorage.setItem('idusuario', String(idusuario));  // Guardamos el idusuario en localStorage
+      
+            onLoginSuccess(data.nombre); // Usamos 'nombre' en lugar de 'usuario'
+            
+
         } catch (error) {
             setError((error as Error).message);
         } finally {

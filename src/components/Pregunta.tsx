@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 
 const Pregunta: React.FC = () => {
@@ -13,7 +12,7 @@ const Pregunta: React.FC = () => {
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
-        const response = await fetch("http://54.87.117.11/EscolaVision/crud/leer.php?tabla=preguntas");
+        const response = await fetch("http://servidor.ieshlanz.es:8000/crud/leer.php?tabla=preguntas");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -160,5 +159,3 @@ const Pregunta: React.FC = () => {
 };
 
 export default Pregunta;
-=======
->>>>>>> parent of 5acf47d (muchos cambios, conexion con **AWS**, login hecho, test, preguntas y usuarios (mas o menos))
