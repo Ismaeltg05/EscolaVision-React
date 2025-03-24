@@ -1,3 +1,9 @@
+/**
+ * @file Area.tsx
+ * @description Componente que muestra los intentos realizados por los usuarios existentes en la app.
+ * @author Adrian Ruiz Sanchez
+ */
+
 import React, { useEffect, useState } from 'react';
 
 const Intentos: React.FC = () => {

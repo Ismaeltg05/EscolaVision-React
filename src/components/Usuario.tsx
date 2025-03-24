@@ -1,3 +1,9 @@
+  /**
+   * @file Usuario.tsx
+   * @description Componente que muestra los usuarios existentes en la app.
+   * @author Adrian Ruiz Sanchez
+   */
+  
   import React, { useEffect, useState } from 'react';
 
   const Usuario: React.FC = () => {

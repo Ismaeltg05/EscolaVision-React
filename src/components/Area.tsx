@@ -1,3 +1,9 @@
+/**
+ * @file Area.tsx
+ * @description Componente que muestra el área de la aplicación.
+ * @author Adrian Ruiz Sanchez
+ */
+
 import React, { useEffect, useState } from 'react';
 import './styles/comun.css';
 

@@ -1,3 +1,9 @@
+/**
+ * @file Menu.tsx
+ * @description Componente que muestra el menú de la aplicación.
+ * @author Adrian Ruiz Sanchez, Ismael Torres González
+ */
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Pregunta from "./Pregunta";
@@ -57,6 +63,7 @@ const Menu = ({ onLogout }: MenuProps) => {
       </nav>
       <div className="content-container">
         {active === "test" && <Test logout={handleLogout} />}
+
         {active === "pregunta" && <Pregunta />}
         {active === "usuario" && <Usuario />}
         {active === "area" && <Area />}

@@ -1,3 +1,9 @@
+/**
+ * @file Test.tsx
+ * @description Componente de gestión de tests.
+ * @author Adrian Ruiz Sanchez, Ismael Torres Gonzalez
+ */
+
 import React, { useEffect, useState } from 'react';
 import './styles/comun.css';
 

@@ -1,3 +1,9 @@
+/**
+ * @file Home.tsx
+ * @description Componente de inicio de la aplicación.
+ * @author Ismael Torres Gonzalez
+ */
+
 import { useNavigate } from 'react-router-dom';
 
 function Home() {

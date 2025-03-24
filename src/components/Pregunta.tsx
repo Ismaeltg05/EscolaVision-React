@@ -1,3 +1,9 @@
+/**
+ * @file Area.tsx
+ * @description Componente que muestra las preguntas existentes en la app y el test al que pertenecen.
+ * @author Adrian Ruiz Sanchez
+ */
+
 import React, { useEffect, useState } from "react";
 
 const Pregunta: React.FC = () => {

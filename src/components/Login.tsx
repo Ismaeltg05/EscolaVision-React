@@ -1,3 +1,10 @@
+/**
+ * @file Login.tsx
+ * @description Componente de inicio de sesión.
+ * @author Adrian Ruiz Sanchez
+ * @coauthors Ismael Torres Gonzalez
+ */
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
