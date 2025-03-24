@@ -62,7 +62,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
                         required
                     />
                 </div>
-                <div className="mb-6">
+                <div className="mb-6 ">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contrasena">
                         Contraseña
                     </label>
@@ -75,7 +75,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
                         required
                     />
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="lgnBtns">
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
