@@ -6,11 +6,8 @@ const Test: React.FC = () => {
   const [idTest, setIdTest] = useState('');
   const [testNombre, setTestNombre] = useState('');
   const [testVisible, setTestVisible] = useState<'sí' | 'no' | ''>('sí');
-  const [pagina, setPagina] = useState(0);
-  const testsPorPagina = 5;
-  // Estado para paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const [testsPerPage] = useState(5); // Número de tests por página
+  const testsPerPage = 5;
 
   const handleNuevoClick = () => {
     setTestNombre('');
@@ -73,14 +70,14 @@ const Test: React.FC = () => {
   };
 
   const handleNextPage = () => {
-    if ((pagina + 1) * testsPorPagina < tests.length) {
-      setPagina(pagina + 1);
+    if (currentPage * testsPerPage < tests.length) {
+      setCurrentPage(currentPage + 1);
     }
   };
 
   const handlePrevPage = () => {
-    if (pagina > 0) {
-      setPagina(pagina - 1);
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -134,13 +131,13 @@ const Test: React.FC = () => {
                 </ul>
                 {/* Paginación */}
               <nav className="pagination">
-                <button onClick={handlePrevPage} disabled={pagina === 0}>
+                <button onClick={handlePrevPage} disabled={currentPage === 1}>
                   ←
                 </button>
-                <span>Página {pagina + 1} de {Math.ceil(tests.length / testsPorPagina)}</span>
+                <span>Página {currentPage} de {Math.ceil(tests.length / testsPerPage)}</span>
                 <button
                   onClick={handleNextPage}
-                  disabled={(pagina + 1) * testsPorPagina >= tests.length}
+                  disabled={currentPage * testsPerPage >= tests.length}
                 >
                   →
                 </button>
