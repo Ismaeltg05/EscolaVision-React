@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type LoginProps = {
     onBackClick: () => void;
@@ -10,6 +11,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
     const [contrasena, setContrasena] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -32,10 +34,10 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
             }
 
             const idusuario = data.id;
-            localStorage.setItem('idusuario', String(idusuario));  // Guardamos el idusuario en localStorage
-      
-            onLoginSuccess(data.nombre); // Usamos 'nombre' en lugar de 'usuario'
-            
+            localStorage.setItem('idusuario', String(idusuario));
+            localStorage.setItem('isLoggedIn', 'true');
+            onLoginSuccess(data.nombre);
+            navigate('/menu');
 
         } catch (error) {
             setError((error as Error).message);

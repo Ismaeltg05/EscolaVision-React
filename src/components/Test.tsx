@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './styles/comun.css';
 
-const Test: React.FC = () => {
+interface TestProps {
+  logout: () => void;
+}
+
+const Test: React.FC<TestProps> = ({ logout }) => {
   const [tests, setTests] = useState<{ id: number; nombretest: string; isVisible: number; }[]>([]);
   const [idTest, setIdTest] = useState('');
   const [testNombre, setTestNombre] = useState('');
@@ -129,19 +133,18 @@ const Test: React.FC = () => {
                     <li>No hay tests disponibles.</li>
                   )}
                 </ul>
-                {/* Paginación */}
-              <nav className="pagination">
-                <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                  ←
-                </button>
-                <span>Página {currentPage} de {Math.ceil(tests.length / testsPerPage)}</span>
-                <button
-                  onClick={handleNextPage}
-                  disabled={currentPage * testsPerPage >= tests.length}
-                >
-                  →
-                </button>
-              </nav>
+                <nav className="pagination">
+                  <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                    ←
+                  </button>
+                  <span>Página {currentPage} de {Math.ceil(tests.length / testsPerPage)}</span>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={currentPage * testsPerPage >= tests.length}
+                  >
+                    →
+                  </button>
+                </nav>
               </div>
             </div>
             <div className="right">

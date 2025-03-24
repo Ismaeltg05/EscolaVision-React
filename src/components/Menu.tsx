@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Pregunta from "./Pregunta";
 import Test from "./Test";
 import Usuario from "./Usuario";
@@ -6,29 +7,31 @@ import Area from "./Area";
 import Intento from "./Intento";
 import './styles/menu.css';
 
-const Menu = () => {
-  const [active, setActive] = useState<string | null>(null);
-  const [usuarioId, setUsuarioId] = useState<number | null>(null);
+interface MenuProps {
+  onLogout: () => void;
+}
 
-  // Al cargar el componente, verificamos si el usuario está logueado
+const Menu = ({ onLogout }: MenuProps) => {
+  const [active, setActive] = useState<string | null>("test");
+  const [usuarioId, setUsuarioId] = useState<number | null>(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const storedIdUsuario = localStorage.getItem('idusuario');
-    if (storedIdUsuario) {
-      setUsuarioId(Number(storedIdUsuario)); // Si está logueado, lo guardamos en el estado
+    if (!storedIdUsuario) {
+      navigate('/login');
+      return;
     }
-  }, []);
+    setUsuarioId(Number(storedIdUsuario));
+  }, [navigate]);
 
-  // Función para manejar el clic en los elementos del menú
-  const handleClick = (item: string) => {
-    setActive(item);
+  const handleLogout = () => {
+    onLogout();
+    navigate('/');
   };
 
-  // Función para cerrar sesión
-  const handleLogout = () => {
-    localStorage.removeItem('idusuario');
-    setUsuarioId(null);
-    window.location.reload();
-    window.location.href = '/'; 
+  const handleClick = (item: string) => {
+    setActive(item);
   };
 
   return (
@@ -37,29 +40,27 @@ const Menu = () => {
         <ul className="menu-list">
           {["test", "pregunta", "usuario", "area", "intento"].map((item) => (
             <li key={item} className="menu-item">
-              <a
-                href={`#${item}`}
+              <button
                 onClick={() => handleClick(item)}
-                className={`menu-link ${active === item ? "active" : ""}`}>
+                className={`menu-link ${active === item ? "active" : ""}`}
+              >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
-              </a>
-            </li>
-          ))}
-          {usuarioId && (  // Solo muestra el botón de "Cerrar sesión" si el usuario está logueado
-            <li className="menu-item">
-              <button className="logout" onClick={handleLogout}>
-                Cerrar sesión
               </button>
             </li>
-          )}
+          ))}
+          <li className="menu-item">
+            <button className="logout" onClick={handleLogout}>
+              Cerrar sesión
+            </button>
+          </li>
         </ul>
       </nav>
       <div className="content-container">
-        {active === "test" && <div className="content"><Test/></div>}
-        {active === "pregunta" && <div className="content"><Pregunta/></div>}
-        {active === "usuario" && <div className="content"><Usuario/></div>}
-        {active === "area" && <div className="content"><Area/></div>}
-        {active === "intento" && <div className="content"><Intento/></div>}
+        {active === "test" && <Test logout={handleLogout} />}
+        {active === "pregunta" && <Pregunta />}
+        {active === "usuario" && <Usuario />}
+        {active === "area" && <Area />}
+        {active === "intento" && <Intento />}
       </div>
     </>
   );
