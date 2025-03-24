@@ -19,7 +19,7 @@ function Home() {
       <div className="card flex flex-col items-center p-4">
         <button
           className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
-          onClick={() => navigate('/login')}
+          onClick={() => navigate('/EscolaVision-React/login')}
         >
           Ir al Login
         </button>

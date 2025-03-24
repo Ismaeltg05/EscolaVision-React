@@ -34,7 +34,7 @@ const Menu = ({ onLogout }: MenuProps) => {
 
   const handleLogout = () => {
     onLogout();
-    navigate('/');
+    navigate('/EscolaVision-React/');
   };
 
   const handleClick = (item: string) => {
