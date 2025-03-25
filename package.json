@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://ismaeltg05.github.io/EscolaVision-React",
+  "proxy": "http://servidor.ieshlanz.es:8000",
+  
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

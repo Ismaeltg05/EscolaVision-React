@@ -18,7 +18,7 @@ const Pregunta: React.FC = () => {
   useEffect(() => {
     const fetchPreguntas = async () => {
       try {
-        const response = await fetch("http://servidor.ieshlanz.es:8000/crud/leer.php?tabla=preguntas");
+        const response = await fetch("/crud/leer.php?tabla=preguntas");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

@@ -27,7 +27,7 @@ const Test: React.FC<TestProps> = ({ logout }) => {
 
   const handleEliminarClick = async () => {
     try {
-      const response = await fetch('http://servidor.ieshlanz.es:8000/crud/borrar.php', {
+      const response = await fetch('/crud/borrar.php', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const Test: React.FC<TestProps> = ({ logout }) => {
 
   const handleGuardarClick = async () => {
     try {
-      const response = await fetch('http://servidor.ieshlanz.es:8000/crud/insertar.php', {
+      const response = await fetch('/crud/insertar.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const Test: React.FC<TestProps> = ({ logout }) => {
 
   const fetchTests = async () => {
     try {
-      const response = await fetch('http://servidor.ieshlanz.es:8000/crud/leer.php?tabla=tests');
+      const response = await fetch('/crud/leer.php?tabla=tests');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

@@ -16,7 +16,7 @@ const Area: React.FC = () => {
   const [imageUrl, setImageUrl] = useState('');
 
   const areasPorPagina = 5;
-  const apiUrl = 'http://servidor.ieshlanz.es:8000/crud/leer.php?tabla=areas';
+  const apiUrl = '/crud/leer.php?tabla=areas';
 
   // Paginación
   const handleNextPage = () => {

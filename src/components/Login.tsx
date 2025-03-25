@@ -26,7 +26,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
         setError('');
 
         try {
-            const response = await fetch('http://servidor.ieshlanz.es:8000/crud/login.php', {
+            const response = await fetch('/crud/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
