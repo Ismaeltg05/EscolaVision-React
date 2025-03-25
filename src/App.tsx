@@ -17,7 +17,7 @@ function App() {
     return localStorage.getItem('isLoggedIn') === 'true';
   });
 
-  const handleLoginSuccess = (usuario: string) => {
+  const handleLoginSuccess = () => {
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedIn', 'true');
   };
@@ -28,12 +28,16 @@ function App() {
     localStorage.removeItem('idusuario');
   };
 
+  const handleBackClick = () => {
+    window.history.back();
+  }
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} onBackClick={() => {}} />} />
-        <Route path="/menu" element={isLoggedIn ? <Menu onLogout={handleLogout} /> : <Login onLoginSuccess={handleLoginSuccess} onBackClick={() => {}} />} />
+        <Route path="/EscolaVision-React/" element={<Home />} />
+        <Route path="/EscolaVision-React/login" element={<Login onLoginSuccess={handleLoginSuccess} onBackClick={handleBackClick} />} />
+        <Route path="/EscolaVision-React/menu" element={isLoggedIn ? <Menu onLogout={handleLogout} /> : <Login onLoginSuccess={handleLoginSuccess} onBackClick={() => {}} />} />
       </Routes>
     </Router>
   );

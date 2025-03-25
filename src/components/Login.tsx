@@ -44,7 +44,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
             localStorage.setItem('idusuario', String(idusuario));
             localStorage.setItem('isLoggedIn', 'true');
             onLoginSuccess(data.nombre);
-            navigate('/menu');
+            navigate('/EscolaVision-React/menu');
 
         } catch (error) {
             setError((error as Error).message);
