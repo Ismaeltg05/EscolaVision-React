@@ -5,21 +5,24 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import './styles/comun.css';
+import { Plus, Trash, Save } from "lucide-react";
 
 const Area: React.FC = () => {
+  // Estado para almacenar las áreas y la paginación
   const [areas, setAreas] = useState<{ id: number; nombre: string; descripción: string; logo: string; }[]>([]);
   const [pagina, setPagina] = useState(0);
+
+  // Estado para manejar los datos del área seleccionada
   const [idArea, setIdArea] = useState('');
   const [nameArea, setNameArea] = useState('');
   const [descriptionArea, setDescriptionArea] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
-  const areasPorPagina = 5;
-  //const apiUrl = 'https://servidor.ieshlanz.es:8000/crud/leer.php?tabla=areas';
-  const apiUrl = 'http://servidor.ieshlanz.es:8000/crud/leer.php?tabla=areas';
+  // Configuración de la paginación
+  const areasPorPagina = 6;
+  const apiUrl = '/crud/leer.php?tabla=areas';
 
-  // Paginación
+  // Funciones para manejar la paginación
   const handleNextPage = () => {
     if ((pagina + 1) * areasPorPagina < areas.length) {
       setPagina(pagina + 1);
@@ -32,6 +35,7 @@ const Area: React.FC = () => {
     }
   };
 
+  // Función para obtener las áreas desde la API
   const fetchAreas = async () => {
     try {
       const response = await fetch(apiUrl);
@@ -49,6 +53,7 @@ const Area: React.FC = () => {
     }
   };
 
+  // Función para manejar el clic en un área
   const handleAreaClick = (area: { id: number; nombre: string; descripción: string; logo: string }) => {
     setIdArea(String(area.id));
     setNameArea(area.nombre);
@@ -56,6 +61,7 @@ const Area: React.FC = () => {
     setImageUrl(area.logo);
   };
 
+  // Función para resetear los datos del área
   const handleNuevoClick = () => {
     setIdArea('');
     setNameArea('');
@@ -63,6 +69,7 @@ const Area: React.FC = () => {
     setImageUrl('');
   };
 
+  // Función para guardar o actualizar un área
   const handleGuardarClick = async () => {
     try {
       const response = await fetch(apiUrl, {
@@ -78,6 +85,7 @@ const Area: React.FC = () => {
     }
   };
 
+  // Función para eliminar un área
   const handleEliminarClick = async () => {
     if (!idArea) return;
 
@@ -91,80 +99,104 @@ const Area: React.FC = () => {
     }
   };
 
+  // Cargar las áreas cuando el componente se monta
   useEffect(() => {
     fetchAreas();
   }, []);
 
-  const indexOfLastArea = (pagina + 1) * areasPorPagina;
-  const indexOfFirstArea = indexOfLastArea - areasPorPagina;
-  const currentAreas = areas.slice(indexOfFirstArea, indexOfLastArea);
 
   return (
-    <div className="tab-content">
-      <div className="border-pane">
-        <div className="main-content">
-          <div className="left">
-            <div className="vbox left-content">
-              <label className="bold-label">Áreas guardadas:</label>
-              <ul className="list-view">
-                {currentAreas.length > 0 ? (
-                  currentAreas.map((area) => (
-                    <li key={area.id} onClick={() => handleAreaClick(area)} className="clickable-item">
-                      {area.nombre}
-                    </li>
-                  ))
-                ) : (
-                  <li>No hay áreas disponibles.</li>
-                )}
-              </ul>
-              <nav className="pagination">
-                <button onClick={handlePrevPage} disabled={pagina === 0}>←</button>
-                <span>Página {pagina + 1} de {Math.ceil(areas.length / areasPorPagina)}</span>
-                <button onClick={handleNextPage} disabled={(pagina + 1) * areasPorPagina >= areas.length}>→</button>
-              </nav>
-            </div>
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
+      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-7xl flex flex-col gap-6 h-full">
+        <h2 className="text-3xl font-bold text-center">Gestión de Area</h2>
+
+        <div className="flex flex-col lg:flex-row gap-6">
+
+          {/* Parte izquierda: Lista de áreas */}
+          <div className="w-full lg:w-2/5 bg-gray-50 p-6 rounded-xl shadow-inner overflow-auto">
+            <h3 className="font-semibold text-lg mb-2">Áreas guardadas</h3>
+            <ul className="space-y-2">
+              {areas
+                .slice(pagina * areasPorPagina, (pagina + 1) * areasPorPagina)
+                .map((area, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleAreaClick(area)}
+                    className="cursor-pointer p-4 bg-white shadow-md rounded-lg hover:bg-blue-100"
+                  >
+                    {`Área ${area.id} - ${area.nombre}`}
+                  </li>
+                ))}
+            </ul>
+
+            {/* Paginación */}
+            <nav className="flex justify-center items-center space-x-3 mt-4">
+              <button
+                onClick={handlePrevPage}
+                disabled={pagina === 0}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300"
+              >
+                ←
+              </button>
+              <span>Página {pagina + 1} de {Math.ceil(areas.length / areasPorPagina)}</span>
+              <button
+                onClick={handleNextPage}
+                disabled={(pagina + 1) * areasPorPagina >= areas.length}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:bg-gray-300"
+              >
+                →
+              </button>
+            </nav>
           </div>
 
-          <div className="right">
-            <div className="vbox right-content">
-              <label className="bold-label">Datos del área</label>
-              <div className="grid-container">
-                <div className="grid-item">
-                  <label>Id</label>
-                  <input type="text" className="text-input" value={idArea} disabled />
-                </div>
-                <div className="grid-item">
-                  <label>Nombre</label>
-                  <input type="text" className="text-input" value={nameArea} onChange={(e) => setNameArea(e.target.value)} placeholder="Introduce el nombre del área..." />
-                </div>
-                <div className="grid-item">
-                  <label>Descripción</label>
-                  <textarea className="text-area" placeholder="Introduce la descripción..." value={descriptionArea} onChange={(e) => setDescriptionArea(e.target.value)} />
-                </div>
-                <div className="grid-item">
-                  <label>Logo</label>
-                  <div className="image-wrapper">
-                    {imageUrl ? <img src={`data:image/png;base64,${imageUrl}`} alt="Logo del área" className="user-image" /> : <span>No hay imagen</span>}
-                  </div>
-                </div>
+          {/* Parte derecha: Detalles del área */}
+          <div className="w-full lg:w-3/5 bg-gray-50 p-6 rounded-xl shadow-inner flex flex-col">
+            <h3 className="font-semibold text-lg mb-2">Datos del Área</h3>
+            <div className="space-y-4 flex-grow">
+              <label className="text-sm">ID</label>
+              <input type="text" className="border p-3 w-full rounded-lg" value={idArea} disabled />
+
+              <label className="text-sm">Nombre</label>
+              <input type="text" className="border p-3 w-full rounded-lg" value={nameArea} onChange={(e) => setNameArea(e.target.value)} placeholder="Introduce el nombre del área..." />
+
+              <label className="text-sm">Descripción</label>
+              <textarea className="border p-3 w-full rounded-lg h-32" placeholder="Introduce la descripción..." value={descriptionArea} onChange={(e) => setDescriptionArea(e.target.value)} />
+
+              <label className="text-sm">Logo</label>
+              <div className="w-full h-36 border border-dashed border-gray-300 flex justify-center items-center rounded-lg">
+                {imageUrl ? (
+                  <img src={`data:image/png;base64,${imageUrl}`} alt="Foto del área" className="max-h-full max-w-full rounded-lg" />
+                ) : (
+                  <span>No hay imagen</span>
+                )}
               </div>
             </div>
           </div>
         </div>
+      </div>
+      {/* Botones para gestionar la pregunta */}
+      <div className="flex flex-nowrap justify-center gap-4 mt-4 px-6 pb-6 w-full max-w-lg">
+        <button
+          onClick={handleNuevoClick}
+          className="bg-blue-500 text-white px-8 py-3 rounded-lg text-lg w-full sm:w-auto flex items-center gap-2"
+        >
+          <Plus size={20} /> Nuevo
+        </button>
 
-        <div className="bottom">
-          <div className="hbox bottom-right">
-            <button className="button" onClick={handleNuevoClick}>
-              <span>Nuevo</span>
-            </button>
-            <button className="button" onClick={handleEliminarClick} disabled={!idArea}>
-              <span>Eliminar</span>
-            </button>
-            <button className="button" onClick={handleGuardarClick}>
-              <span>Guardar</span>
-            </button>
-          </div>
-        </div>
+        <button
+          onClick={handleEliminarClick}
+          disabled={!idArea}
+          className="bg-red-500 text-white px-8 py-3 rounded-lg text-lg w-full sm:w-auto flex items-center gap-2 disabled:opacity-50"
+        >
+          <Trash size={20} /> Eliminar
+        </button>
+
+        <button
+          onClick={handleGuardarClick}
+          className="bg-green-500 text-white px-8 py-3 rounded-lg text-lg w-full sm:w-auto flex items-center gap-2"
+        >
+          <Save size={20} /> Guardar
+        </button>
       </div>
     </div>
   );

@@ -1,12 +1,6 @@
-/**
- * @file Login.tsx
- * @description Componente de inicio de sesión.
- * @author Adrian Ruiz Sanchez
- * @coauthors Ismael Torres Gonzalez
- */
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 type LoginProps = {
     onBackClick: () => void;
@@ -26,12 +20,9 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
         setError('');
 
         try {
-            //const response = await fetch('https://servidor.ieshlanz.es:8000/crud/login.php', {
-            const response = await fetch('http://servidor.ieshlanz.es:8000/crud/login.php', {
+            const response = await fetch('/crud/login.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario, contrasena }),
             });
 
@@ -40,9 +31,10 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
             if (!data || data.status !== 'success') {
                 throw new Error(data.message || 'Credenciales incorrectas');
             }
-
-            const idusuario = data.id;
-            localStorage.setItem('idusuario', String(idusuario));
+            localStorage.setItem('idusuario', String(data.id));
+            localStorage.setItem('nombre', data.nombre);
+            localStorage.setItem('tipo', data.tipo);
+            localStorage.setItem('isOrientador', data.is_orientador);
             localStorage.setItem('isLoggedIn', 'true');
             onLoginSuccess(data.nombre);
             navigate('/EscolaVision-React/menu');
@@ -55,65 +47,84 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-[#AED6F1]">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-sm">
-                <h2 className="text-2xl font-bold mb-4 text-center">Iniciar Sesión</h2>
-                {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="usuario">
-                        Usuario
-                    </label>
-                    <input
-                        type="text"
-                        id="usuario"
-                        value={usuario}
-                        onChange={(e) => setUsuario(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        required
-                    />
-                </div>
-                <div className="mb-6 ">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contrasena">
-                        Contraseña
-                    </label>
-                    <input
-                        type="password"
-                        id="contrasena"
-                        value={contrasena}
-                        onChange={(e) => setContrasena(e.target.value)}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        required
-                    />
-                </div>
-                <div className="lgnBtns">
-                    <button
-                        type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        disabled={loading}
-                    >
-                        {loading ? 'Verificando...' : 'Iniciar Sesión'}
-                    </button>
-                    <button
-                        type="button"
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        onClick={onBackClick}
-                    >
-                        Volver
-                    </button>
-                </div>
-                <div className="text-center mt-4">
-                        <p className="text-gray-700 text-sm">
+        <div className="flex justify-center items-center min-h-screen">
+            <motion.div
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm"
+            >
+                <h2 className="text-3xl font-bold mb-6 text-center text-indigo-700">Iniciar Sesión</h2>
+
+                {error && (
+                    <p className="text-red-500 text-center mb-4 bg-red-100 p-2 rounded">
+                        {error}
+                    </p>
+                )}
+
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label htmlFor="usuario" className="block text-gray-700 font-semibold mb-1">
+                            Usuario
+                        </label>
+                        <input
+                            type="text"
+                            id="usuario"
+                            value={usuario}
+                            onChange={(e) => setUsuario(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-6">
+                        <label htmlFor="contrasena" className="block text-gray-700 font-semibold mb-1">
+                            Contraseña
+                        </label>
+                        <input
+                            type="password"
+                            id="contrasena"
+                            value={contrasena}
+                            onChange={(e) => setContrasena(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                            required
+                        />
+                    </div>
+
+                    <div className="flex flex-col space-y-3">
+                        <motion.button
+                            type="submit"
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none transition-all"
+                            disabled={loading}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            {loading ? 'Verificando...' : 'Iniciar Sesión'}
+                        </motion.button>
+
+                        <motion.button
+                            type="button"
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none transition-all"
+                            onClick={onBackClick}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Volver
+                        </motion.button>
+                    </div>
+
+                    <div className="text-center mt-4">
+                        <p className="text-gray-700">
                             ¿No tienes una cuenta?{' '}
                             <button
                                 type="button"
-                                className="text-blue-500 hover:text-blue-700"
+                                className="text-indigo-600 hover:underline"
                                 onClick={() => navigate('/EscolaVision-React/registro')}
                             >
                                 Regístrate aquí
                             </button>
                         </p>
                     </div>
-            </form>
+                </form>
+            </motion.div>
         </div>
     );
 };

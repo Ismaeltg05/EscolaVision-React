@@ -41,45 +41,57 @@ const Register: React.FC<RegisterProps> = ({ onBackClick, onRegisterSuccess }) =
         setLoading(true);
         setError('');
 
+        // Validar contraseñas
         if (contrasena !== confirmarContrasena) {
             setError('Las contraseñas no coinciden');
             setLoading(false);
             return;
         }
 
+        // Validar formato de email y DNI
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailRegex.test(email)) {
+            setError('Email inválido');
+            setLoading(false);
+            return;
+        }
+
+        const dniRegex = /^[0-9]{8}[A-Za-z]{1}$/; // Formato típico de DNI español
+        if (!dniRegex.test(dni)) {
+            setError('DNI inválido');
+            setLoading(false);
+            return;
+        }
+
         try {
             // Convertir la foto a Base64 si se seleccionó una
-            let fotoBase64 = '';
-            if (foto) {
-                fotoBase64 = await convertToBase64(foto);
-            }
+            let fotoBase64 = foto ? await convertToBase64(foto) : '';
             // Crear el objeto con los datos
             const datos = {
                 nombre: usuario,
                 email: email,
                 contraseña: contrasena,
-                tipoUsuario: tipoUsuario,
-                isOrientador: String(isOrientador),
+                tipo_usuario: tipoUsuario === 'alumno' ? 1 : 2,
+                is_orientador: isOrientador ? 1 : 0,
                 dni: dni,
-                fecha_nacimiento: 2000,
+                fecha_nacimiento: fechaNacimiento.substring(0, 4),
                 foto: fotoBase64,
-                idCentro: 1,
+                id_centro: 1,
             };
 
             const body = JSON.stringify({
-                datos: JSON.stringify(datos),  // Serializamos el objeto datos
+                datos,
                 tabla: 'usuarios',
             });
-            
+
             const response = await fetch('/crud/insertar.php', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json; utf-8',
+                    'Accept': 'application/json',
                 },
                 body: body,
             });
-            console.log(body);
-            
 
             const data = await response.json();
             console.log(data);
@@ -96,6 +108,7 @@ const Register: React.FC<RegisterProps> = ({ onBackClick, onRegisterSuccess }) =
             setLoading(false);
         }
     };
+
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-[#AED6F1]">
