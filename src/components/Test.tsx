@@ -85,7 +85,6 @@ const Test: React.FC<TestProps> = () => {
     if (!idTest) return;
     try {
       setEliminando(true);
-      setTestEliminado(idTest);
 
       const response = await fetch(`/crud/borrar.php`, {
         method: "DELETE",
