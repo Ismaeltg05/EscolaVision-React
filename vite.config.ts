@@ -9,4 +9,9 @@ export default defineConfig({
     react()
   ],
   base: '/EscolaVision-React/',
+  server: {
+    proxy: {
+      '/crud': 'http://servidor.ieshlanz.es:8000',
+    },
+  },
 })

@@ -101,6 +101,18 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
                         Volver
                     </button>
                 </div>
+                <div className="text-center mt-4">
+                        <p className="text-gray-700 text-sm">
+                            ¿No tienes una cuenta?{' '}
+                            <button
+                                type="button"
+                                className="text-blue-500 hover:text-blue-700"
+                                onClick={() => navigate('/EscolaVision-React/registro')}
+                            >
+                                Regístrate aquí
+                            </button>
+                        </p>
+                    </div>
             </form>
         </div>
     );

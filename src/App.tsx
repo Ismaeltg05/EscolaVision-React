@@ -11,6 +11,7 @@ import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import Menu from './components/Menu';
+import Registro from './components/Register';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/EscolaVision-React/" element={<Home />} />
         <Route path="/EscolaVision-React/login" element={<Login onLoginSuccess={handleLoginSuccess} onBackClick={handleBackClick} />} />
         <Route path="/EscolaVision-React/menu" element={isLoggedIn ? <Menu onLogout={handleLogout} /> : <Login onLoginSuccess={handleLoginSuccess} onBackClick={() => {}} />} />
+        <Route path="/EscolaVision-React/registro" element={<Registro  onBackClick={handleBackClick} onRegisterSuccess={handleLoginSuccess}/>} />
       </Routes>
     </Router>
   );
