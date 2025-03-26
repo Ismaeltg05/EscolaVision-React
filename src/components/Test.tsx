@@ -14,7 +14,7 @@ const Test: React.FC<TestProps> = () => {
   const [testNombre, setTestNombre] = useState("");
   const [testVisible, setTestVisible] = useState<'sí' | 'no' | ''>("sí");
   const [eliminando, setEliminando] = useState(false);
-  const [testEliminado, setTestEliminado] = useState(null);
+  const [testEliminado] = useState(null);
   const [guardado, setGuardado] = useState(false);
   const testsPorPagina = 6;
 
