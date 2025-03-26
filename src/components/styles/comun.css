@@ -5,6 +5,12 @@ body {
     padding: 0;
     box-sizing: border-box;
   }
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
   
   .tab-content {
     background-color: white;

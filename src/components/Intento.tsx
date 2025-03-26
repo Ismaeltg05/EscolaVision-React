@@ -26,7 +26,8 @@ const Intentos: React.FC = () => {
 
     const fetchIntentos = async () => {
       try {
-        const response = await fetch('https://servidor.ieshlanz.es:8000/crud/leer.php?tabla=intentos');
+        //const response = await fetch('https://servidor.ieshlanz.es:8000/crud/leer.php?tabla=intentos');
+        const response = await fetch('http://servidor.ieshlanz.es:8000/crud/leer.php?tabla=intentos');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
