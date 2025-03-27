@@ -16,6 +16,7 @@ const Test: React.FC<TestProps> = () => {
   const [eliminando, setEliminando] = useState(false);
   const [testEliminado] = useState(null);
   const [guardado, setGuardado] = useState(false);
+  const [guarAct, setGuarAct] = useState("");
   const testsPorPagina = 6;
 
   var apiUrl = "https://proxy-vercel-ten.vercel.app/leer.php?tabla=tests";
@@ -62,10 +63,14 @@ const Test: React.FC<TestProps> = () => {
   const handleGuardarClick = async () => {
     try {
       const datos = JSON.stringify({ id: idTest, nombretest: testNombre, isVisible: testVisible == "sí" ? 1 : 0 });
-      const response = await fetch(idTest ? "/actualizar.php" : "/insertar.php", {
+      const response = await fetch(idTest ? "https://proxy-vercel-ten.vercel.app/actualizar.php" : "https://proxy-vercel-ten.vercel.app/insertar.php", {
         method: idTest ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+        body: idTest ? JSON.stringify({
+          tabla: "tests",
+          datos: JSON.parse(datos),
+          id: idTest,
+        }) : JSON.stringify({
           tabla: "tests",
           datos: JSON.parse(datos),
         }),
@@ -73,6 +78,11 @@ const Test: React.FC<TestProps> = () => {
       if (!response.ok) throw new Error("Error al guardar el test");
 
       setGuardado(true);
+      if(idTest){
+        setGuarAct("actualizado");
+      }else{
+        setGuarAct("guardado");
+      }
       setTimeout(() => setGuardado(false), 1500);
       handleNuevoClick();
       fetchTests();
@@ -86,7 +96,7 @@ const Test: React.FC<TestProps> = () => {
     try {
       setEliminando(true);
 
-      const response = await fetch(`/borrar.php`, {
+      const response = await fetch(`https://proxy-vercel-ten.vercel.app/borrar.php`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tabla: "tests", id: idTest }),
@@ -108,7 +118,7 @@ const Test: React.FC<TestProps> = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen p-6 bg-gray-100">
       <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-7xl flex flex-col gap-6 h-[80%] overflow-hidden">
-        <h2 className="text-3xl font-bold text-center">Gestión de Test</h2>
+        <h2 className="text-3xl font-bold text-center">Gestión de Tests</h2>
 
         <div className="flex flex-col lg:flex-row gap-6 overflow-auto">
           {/* Parte izquierda: Lista de tests */}
@@ -235,7 +245,7 @@ const Test: React.FC<TestProps> = () => {
           className="fixed bottom-10 left-10 bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center"
         >
           <CheckCircle className="w-10 h-10 animate-bounce" />
-          <span className="ml-2">Test guardado</span>
+          <span className="ml-2">Test {guarAct}</span>
         </motion.div>
       )}
     </div>
