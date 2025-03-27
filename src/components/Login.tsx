@@ -54,7 +54,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
                 transition={{ duration: 0.8 }}
                 className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm"
             >
-                <h2 className="text-3xl font-bold mb-6 text-center text-indigo-700">Iniciar Sesión</h2>
+                <h2 className="text-3xl font-bold mb-6 text-center text-blue-600">Iniciar Sesión</h2>
 
                 {error && (
                     <p className="text-red-500 text-center mb-4 bg-red-100 p-2 rounded">
@@ -94,7 +94,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
                     <div className="flex flex-col space-y-3">
                         <motion.button
                             type="submit"
-                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none transition-all"
+                            className="bg-blue-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none transition-all"
                             disabled={loading}
                             whileTap={{ scale: 0.95 }}
                         >
