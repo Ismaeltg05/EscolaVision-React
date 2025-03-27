@@ -11,7 +11,10 @@ export default defineConfig({
   base: '/EscolaVision-React/',
   server: {
     proxy: {
-      '/crud': 'http://servidor.ieshlanz.es:8000',
+      '/leer': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
+      '/login': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
+      '/insertar': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
+      '/actualizar': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
     },
   },
 })

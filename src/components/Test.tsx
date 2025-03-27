@@ -18,7 +18,7 @@ const Test: React.FC<TestProps> = () => {
   const [guardado, setGuardado] = useState(false);
   const testsPorPagina = 6;
 
-  var apiUrl = "/crud/leer.php?tabla=tests";
+  var apiUrl = "/leer.php?tabla=tests";
   const fetchTests = async () => {
     try {
       const response = await fetch(apiUrl);
@@ -62,7 +62,7 @@ const Test: React.FC<TestProps> = () => {
   const handleGuardarClick = async () => {
     try {
       const datos = JSON.stringify({ id: idTest, nombretest: testNombre, isVisible: testVisible == "sí" ? 1 : 0 });
-      const response = await fetch(idTest ? "/crud/actualizar.php" : "/crud/insertar.php", {
+      const response = await fetch(idTest ? "/actualizar.php" : "/insertar.php", {
         method: idTest ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -86,7 +86,7 @@ const Test: React.FC<TestProps> = () => {
     try {
       setEliminando(true);
 
-      const response = await fetch(`/crud/borrar.php`, {
+      const response = await fetch(`/borrar.php`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tabla: "tests", id: idTest }),

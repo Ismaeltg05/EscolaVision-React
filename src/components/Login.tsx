@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
         setError('');
 
         try {
-            const response = await fetch('/crud/login.php', {
+            const response = await fetch("/login.php", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario, contrasena }),

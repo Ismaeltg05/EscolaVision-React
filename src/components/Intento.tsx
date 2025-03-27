@@ -36,7 +36,7 @@ const Intentos: React.FC = () => {
 
     const fetchIntentos = async () => {
       try {
-        const response = await fetch('/crud/leer.php?tabla=intentos');
+        const response = await fetch('/leer.php?tabla=intentos');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

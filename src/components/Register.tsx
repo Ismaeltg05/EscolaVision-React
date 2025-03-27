@@ -84,7 +84,7 @@ const Register: React.FC<RegisterProps> = ({ onBackClick, onRegisterSuccess }) =
                 tabla: 'usuarios',
             });
 
-            const response = await fetch('/crud/insertar.php', {
+            const response = await fetch('/insertar.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; utf-8',

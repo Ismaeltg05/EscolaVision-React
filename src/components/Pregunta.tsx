@@ -19,7 +19,7 @@ const Pregunta: React.FC = () => {
 
     const fetchTests = async () => {
       try {
-        const response = await fetch("/crud/leer.php?tabla=tests");
+        const response = await fetch("/leer.php?tabla=tests");
         if (!response.ok) throw new Error("Error al obtener tests");
         const data = await response.json();
         setTests(data.tests);
@@ -33,7 +33,7 @@ const Pregunta: React.FC = () => {
 
   const fetchPreguntas = async (testId: number) => {
     try {
-      const response = await fetch("/crud/leer.php?tabla=preguntas");
+      const response = await fetch("/leer.php?tabla=preguntas");
       if (!response.ok) throw new Error("Error al obtener preguntas");
       const data = await response.json();
       setPreguntas(data.preguntas.filter((pregunta: { idtest: number }) => pregunta.idtest === testId));
