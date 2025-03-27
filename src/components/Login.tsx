@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
         setError('');
 
         try {
-            const response = await fetch("https://cors-proxy.escolavisionhlanz.workers.dev/login.php", {
+            const response = await fetch("https://proxy-vercel-ten.vercel.app/login.php", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ usuario, contrasena }),
@@ -65,7 +65,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="usuario" className="block text-gray-700 font-semibold mb-1">
-                            Usuario
+                            Usuarioo
                         </label>
                         <input
                             type="text"

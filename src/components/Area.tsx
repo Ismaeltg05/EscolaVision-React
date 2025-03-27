@@ -20,7 +20,7 @@ const Area: React.FC = () => {
 
   // Configuración de la paginación
   const areasPorPagina = 6;
-  const apiUrl = 'https://cors-proxy.escolavisionhlanz.workers.dev/leer.php?tabla=areas';
+  const apiUrl = 'https://proxy-vercel-ten.vercel.app/leer.php?tabla=areas';
 
   // Funciones para manejar la paginación
   const handleNextPage = () => {

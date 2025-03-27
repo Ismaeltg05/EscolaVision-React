@@ -36,7 +36,7 @@ const Intentos: React.FC = () => {
 
     const fetchIntentos = async () => {
       try {
-        const response = await fetch('https://cors-proxy.escolavisionhlanz.workers.dev/leer.php?tabla=intentos');
+        const response = await fetch('https://proxy-vercel-ten.vercel.app/leer.php?tabla=intentos');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
