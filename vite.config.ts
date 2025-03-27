@@ -9,12 +9,4 @@ export default defineConfig({
     react()
   ],
   base: '/EscolaVision-React/',
-  server: {
-    proxy: {
-      '/leer': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
-      '/login': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
-      '/insertar': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
-      '/actualizar': 'https://cors-proxy.escolavisionhlanz.workers.dev/',
-    },
-  },
 })

@@ -18,7 +18,7 @@ const Test: React.FC<TestProps> = () => {
   const [guardado, setGuardado] = useState(false);
   const testsPorPagina = 6;
 
-  var apiUrl = "/leer.php?tabla=tests";
+  var apiUrl = "https://cors-proxy.escolavisionhlanz.workers.dev/leer.php?tabla=tests";
   const fetchTests = async () => {
     try {
       const response = await fetch(apiUrl);

@@ -23,7 +23,7 @@ const Usuario: React.FC = () => {
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
-        const response = await fetch('/leer.php?tabla=usuarios');
+        const response = await fetch('https://cors-proxy.escolavisionhlanz.workers.dev/leer.php?tabla=usuarios');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

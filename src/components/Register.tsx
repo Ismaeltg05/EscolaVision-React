@@ -84,7 +84,7 @@ const Register: React.FC<RegisterProps> = ({ onBackClick, onRegisterSuccess }) =
                 tabla: 'usuarios',
             });
 
-            const response = await fetch('/insertar.php', {
+            const response = await fetch('https://cors-proxy.escolavisionhlanz.workers.dev/insertar.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; utf-8',
