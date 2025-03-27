@@ -65,7 +65,7 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="usuario" className="block text-gray-700 font-semibold mb-1">
-                            Usuarioo
+                            Usuario
                         </label>
                         <input
                             type="text"
