@@ -82,6 +82,8 @@ const Area: React.FC = () => {
       });
 
       if (!response.ok) throw new Error('Error al guardar el área');
+      setGuardado(true);
+      setTimeout(() => setGuardado(false), 1500);
       fetchAreas();
     } catch (error) {
       console.error('Error al guardar el área:', error);
