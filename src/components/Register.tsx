@@ -74,27 +74,27 @@ const Register: React.FC<RegisterProps> = ({ onBackClick, onRegisterSuccess }) =
                 tipo_usuario: tipoUsuario === 'alumno' ? 1 : 2,
                 is_orientador: isOrientador ? 1 : 0,
                 dni: dni,
-                fecha_nacimiento: fechaNacimiento.substring(0, 4),
+                fecha_nacimiento: fechaNacimiento,
                 foto: fotoBase64,
                 id_centro: 1,
             };
-
+            console.log(datos);
             const body = JSON.stringify({
                 datos,
                 tabla: 'usuarios',
             });
+            console.log(body);
 
             const response = await fetch('https://proxy-vercel-ten.vercel.app/insertar.php', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json; utf-8',
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
                 body: body,
             });
 
             const data = await response.json();
-            console.log(data);
 
             if (!data || data.status !== 'success') {
                 throw new Error(data.message || 'Error al registrar el usuario');

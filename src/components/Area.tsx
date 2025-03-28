@@ -5,7 +5,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Plus, Trash, Save } from "lucide-react";
+import { Plus, Save, CheckCircle, Trash2 } from "lucide-react";
 
 const Area: React.FC = () => {
   // Estado para almacenar las áreas y la paginación
@@ -17,6 +17,9 @@ const Area: React.FC = () => {
   const [nameArea, setNameArea] = useState('');
   const [descriptionArea, setDescriptionArea] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+
+  const [eliminando, setEliminando] = useState(false);
+  const [guardado, setGuardado] = useState(false);
 
   // Configuración de la paginación
   const areasPorPagina = 6;
@@ -88,27 +91,45 @@ const Area: React.FC = () => {
   // Función para eliminar un área
   const handleEliminarClick = async () => {
     if (!idArea) return;
-
     try {
-      const response = await fetch(`${apiUrl}?id=${idArea}`, { method: 'DELETE' });
-      if (!response.ok) throw new Error('Error al eliminar el área');
-      fetchAreas();
-      handleNuevoClick();
-    } catch (error) {
-      console.error('Error al eliminar el área:', error);
+      const response = await fetch(`https://proxy-vercel-ten.vercel.app/borrar.php`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tabla: "areas", id: idArea }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 503) {
+          throw new Error("No se puede eliminar un test que tiene preguntas asociadas");
+        } else {
+          throw new Error("Error al eliminar el test");
+        }
+      } else {
+        setEliminando(true);
+        setTimeout(() => setEliminando(false), 1500);
+        handleNuevoClick();
+        fetchAreas();
+      }
+
+    } catch (error: string | any) {
+      console.error("Error al eliminar el test:", error);
+      //setError(error.message);
+      setEliminando(false);
+      //setTimeout(() => setError(null), 3000);
     }
   };
 
   // Cargar las áreas cuando el componente se monta
   useEffect(() => {
     fetchAreas();
+    handleNuevoClick();
   }, []);
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
+    <div className="flex flex-col items-center justify-center w-full min-h-screen p-6 bg-gray-100">
       <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-7xl flex flex-col gap-6 h-full">
-        <h2 className="text-3xl font-bold text-center">Gestión de Area</h2>
+        <h2 className="text-3xl font-bold text-center">Gestión de Áreas</h2>
 
         <div className="flex flex-col lg:flex-row gap-6">
 
@@ -153,8 +174,8 @@ const Area: React.FC = () => {
           <div className="w-full lg:w-3/5 bg-gray-50 p-6 rounded-xl shadow-inner flex flex-col">
             <h3 className="font-semibold text-lg mb-2">Datos del Área</h3>
             <div className="space-y-4 flex-grow">
-              <label className="text-sm">ID</label>
-              <input type="text" className="border p-3 w-full rounded-lg" value={idArea} disabled />
+              {/* <label className="text-sm">ID</label>
+              <input type="text" className="border p-3 w-full rounded-lg" value={idArea} disabled /> */}
 
               <label className="text-sm">Nombre</label>
               <input type="text" className="border p-3 w-full rounded-lg" value={nameArea} onChange={(e) => setNameArea(e.target.value)} placeholder="Introduce el nombre del área..." />
@@ -185,17 +206,20 @@ const Area: React.FC = () => {
 
         <button
           onClick={handleEliminarClick}
-          disabled={!idArea}
-          className="bg-red-500 text-white px-8 py-3 rounded-lg text-lg w-full sm:w-auto flex items-center gap-2 disabled:opacity-50"
+          disabled={!idArea || eliminando}
+          className={`px-8 py-3 rounded-lg text-lg w-full sm:w-auto flex items-center gap-2 
+            ${!idArea || eliminando ? 'bg-red-300 text-white cursor-not-allowed' : 'bg-red-500 text-white hover:bg-red-600'}`}
         >
-          <Trash size={20} /> Eliminar
+          {eliminando ? <CheckCircle size={20} /> : <><Trash2 size={20} /> Eliminar</>}
         </button>
 
         <button
           onClick={handleGuardarClick}
-          className="bg-green-500 text-white px-8 py-3 rounded-lg text-lg w-full sm:w-auto flex items-center gap-2"
+          disabled={nameArea.trim() === "" || descriptionArea.trim() === "" || guardado}
+          className={`px-8 py-3 rounded-lg text-lg w-full sm:w-auto flex items-center gap-2 
+            ${nameArea.trim() === "" || descriptionArea.trim() === "" || guardado ? 'bg-green-300 text-white cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'}`}
         >
-          <Save size={20} /> Guardar
+          {guardado ? <CheckCircle size={20} /> : <><Save size={20} /> {idArea ? "Actualizar" : "Guardar"}</>}
         </button>
       </div>
     </div>

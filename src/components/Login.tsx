@@ -31,10 +31,12 @@ const Login: React.FC<LoginProps> = ({ onBackClick, onLoginSuccess }) => {
             if (!data || data.status !== 'success') {
                 throw new Error(data.message || 'Credenciales incorrectas');
             }
-            localStorage.setItem('idusuario', String(data.id));
+            console.log(data);
+            localStorage.setItem('idusuario', ""+data.id);
             localStorage.setItem('nombre', data.nombre);
             localStorage.setItem('tipo', data.tipo);
             localStorage.setItem('isOrientador', data.is_orientador);
+            localStorage.setItem('id_centro', data.id_centro);
             localStorage.setItem('isLoggedIn', 'true');
             onLoginSuccess(data.nombre);
             navigate('/EscolaVision-React/menu');
